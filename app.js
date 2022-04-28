@@ -67,24 +67,22 @@ const fetchData = async () => {
           groupedProducts,
           "color"
         );
-        const filteredProductsBySize = filterProducts(
-          data.selectedFilters.colors,
-          groupedProducts,
+
+        const filteredProductsBySizeAndColor = filterProducts(
+          data.selectedFilters.sizes,
+          filteredProductsByColor,
           "size"
         );
-        const filteredProducts = [
-          ...filteredProductsByColor,
-          ...filteredProductsBySize,
-        ];
-        const highestPriceObj = getHighestPrice(filteredProducts);
-        const lowestPriceObj = getLowestPrice(filteredProducts);
+
+        const highestPriceObj = getHighestPrice(filteredProductsBySizeAndColor);
+        const lowestPriceObj = getLowestPrice(filteredProductsBySizeAndColor);
         const roundedValue = Math.round(
           highestPriceObj.price * lowestPriceObj.price
         );
         const arrOfDigits = Array.from(String(roundedValue), Number);
         const finalArray = getAddedNumbers(arrOfDigits);
-        //sprawdzałem kilka razy i nie wiem czy nie widzę gdzie popełniłem błąd czy z danych wychodzi liczba 13 zamiast 14 :D
-        const indexOfOffice = finalArray.findIndex((el) => el === 13);
+
+        const indexOfOffice = finalArray.findIndex((el) => el === 14);
         const finalValue = indexOfOffice * roundedValue * "Monogo".length;
         console.log(finalValue);
       });
